@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FastAPI 巩固小测 01</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #182230; background: #f5f7fb; }
+    body { margin: 0; }
+    main { max-width: 880px; margin: 32px auto; padding: 0 18px 48px; }
+    header, .question, #result { background: #fff; border: 1px solid #dde3ee; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px #1720330d; }
+    header { margin-bottom: 18px; }
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    p { line-height: 1.6; }
+    .question { margin: 14px 0; }
+    .question legend { font-weight: 700; line-height: 1.5; }
+    label { display: block; margin-top: 10px; padding: 8px 10px; border-radius: 7px; cursor: pointer; }
+    label:hover { background: #f2f6ff; }
+    input { margin-right: 9px; }
+    button { margin-top: 12px; border: 0; border-radius: 8px; padding: 12px 16px; background: #1d4ed8; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+    button:hover { background: #1e40af; }
+    #result { display: none; margin-top: 22px; border-color: #b8cdfa; background: #eff5ff; }
+    textarea { width: 100%; min-height: 64px; margin-top: 8px; box-sizing: border-box; padding: 10px; font: inherit; }
+    .hint { color: #526174; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>FastAPI 巩固小测 01</h1>
+      <p>共 20 题。直接点选即可；完成后点击最下方按钮，复制自动生成的答案行发给我。我会批改和解释错题。</p>
+      <p class="hint">本页不会显示正确答案。</p>
+    </header>
+
+    <form id="quiz">
+      <fieldset class="question"><legend>1. 创建 request 时，owner_id 最安全的来源是？</legend><label><input type="radio" name="q1" value="A">A. 前端 JSON 请求体</label><label><input type="radio" name="q1" value="B">B. URL query parameter</label><label><input type="radio" name="q1" value="C">C. 当前 Bearer Token 解析出的用户 id</label><label><input type="radio" name="q1" value="D">D. 前端 localStorage 的 username</label></fieldset>
+      <fieldset class="question"><legend>2. 用户 A 读取属于用户 B 的 request，作业要求应返回？</legend><label><input type="radio" name="q2" value="A">A. 200</label><label><input type="radio" name="q2" value="B">B. 401</label><label><input type="radio" name="q2" value="C">C. 403</label><label><input type="radio" name="q2" value="D">D. 404</label></fieldset>
+      <fieldset class="question"><legend>3. Depends(get_current_user) 的主要作用是？</legend><label><input type="radio" name="q3" value="A">A. 自动创建数据库表</label><label><input type="radio" name="q3" value="B">B. 将认证后的当前用户注入路由函数</label><label><input type="radio" name="q3" value="C">C. 自动生成 JWT</label><label><input type="radio" name="q3" value="D">D. 自动缓存响应</label></fieldset>
+      <fieldset class="question"><legend>4. 为什么不能将 Pydantic 的 UserCreate 直接传给 db.add()？</legend><label><input type="radio" name="q4" value="A">A. 它会自动删除数据库</label><label><input type="radio" name="q4" value="B">B. 它不是 SQLAlchemy ORM model 实例</label><label><input type="radio" name="q4" value="C">C. 它不能包含 password</label><label><input type="radio" name="q4" value="D">D. Pydantic 不支持类型校验</label></fieldset>
+      <fieldset class="question"><legend>5. response_model=UserResponse 的安全价值是？</legend><label><input type="radio" name="q5" value="A">A. 自动加密响应</label><label><input type="radio" name="q5" value="B">B. 自动让响应更快</label><label><input type="radio" name="q5" value="C">C. 限制返回字段，避免泄露 hashed_password</label><label><input type="radio" name="q5" value="D">D. 自动把 401 改为 403</label></fieldset>
+      <fieldset class="question"><legend>6. 登录用户名或密码错误时，更合适的状态码是？</legend><label><input type="radio" name="q6" value="A">A. 200</label><label><input type="radio" name="q6" value="B">B. 201</label><label><input type="radio" name="q6" value="C">C. 401</label><label><input type="radio" name="q6" value="D">D. 404</label></fieldset>
+      <fieldset class="question"><legend>7. 普通用户访问管理员接口，正确状态码是？</legend><label><input type="radio" name="q7" value="A">A. 401</label><label><input type="radio" name="q7" value="B">B. 403</label><label><input type="radio" name="q7" value="C">C. 404</label><label><input type="radio" name="q7" value="D">D. 422</label></fieldset>
+      <fieldset class="question"><legend>8. JWT payload 中 exp 的作用是？</legend><label><input type="radio" name="q8" value="A">A. 存储加密后的密码</label><label><input type="radio" name="q8" value="B">B. 声明 token 的过期时间</label><label><input type="radio" name="q8" value="C">C. 指定数据库路径</label><label><input type="radio" name="q8" value="D">D. 指定 CORS 来源</label></fieldset>
+      <fieldset class="question"><legend>9. OAuth2PasswordRequestForm 接收登录信息时，前端应使用？</legend><label><input type="radio" name="q9" value="A">A. JSON body</label><label><input type="radio" name="q9" value="B">B. multipart/form-data</label><label><input type="radio" name="q9" value="C">C. application/x-www-form-urlencoded</label><label><input type="radio" name="q9" value="D">D. URL path parameter</label></fieldset>
+      <fieldset class="question"><legend>10. model_dump(exclude_unset=True) 的主要目的是什么？</legend><label><input type="radio" name="q10" value="A">A. 忽略未提交字段，不覆盖原有值</label><label><input type="radio" name="q10" value="B">B. 自动删除空字符串</label><label><input type="radio" name="q10" value="C">C. 自动做数据库 commit</label><label><input type="radio" name="q10" value="D">D. 禁止更新任何字段</label></fieldset>
+      <fieldset class="question"><legend>11. 哪种查询最符合“用户只能读取自己的 request”？</legend><label><input type="radio" name="q11" value="A">A. 仅按 id 查询</label><label><input type="radio" name="q11" value="B">B. 仅按 owner_id 查询</label><label><input type="radio" name="q11" value="C">C. 同时按 id 和 owner_id 查询</label><label><input type="radio" name="q11" value="D">D. 查询全部后由前端隐藏</label></fieldset>
+      <fieldset class="question"><legend>12. Literal[&quot;low&quot;, &quot;medium&quot;, &quot;high&quot;] 最适合用于？</legend><label><input type="radio" name="q12" value="A">A. 自动生成数据库 ID</label><label><input type="radio" name="q12" value="B">B. 限制 priority 的合法取值</label><label><input type="radio" name="q12" value="C">C. 加密 JWT</label><label><input type="radio" name="q12" value="D">D. 设置 HTTP 状态码</label></fieldset>
+      <fieldset class="question"><legend>13. 前端收到 422 时，最有价值的展示内容是？</legend><label><input type="radio" name="q13" value="A">A. 固定显示“未知错误”</label><label><input type="radio" name="q13" value="B">B. 后端响应中的 detail</label><label><input type="radio" name="q13" value="C">C. 自动刷新页面</label><label><input type="radio" name="q13" value="D">D. 清除 token</label></fieldset>
+      <fieldset class="question"><legend>14. 从 localStorage 取得 token 后，调用受保护 API 还必须？</legend><label><input type="radio" name="q14" value="A">A. 在 URL 中加 ?token=...</label><label><input type="radio" name="q14" value="B">B. 加 Authorization: Bearer &lt;token&gt; 请求头</label><label><input type="radio" name="q14" value="C">C. 将 token 写进 title</label><label><input type="radio" name="q14" value="D">D. 每次重新注册</label></fieldset>
+      <fieldset class="question"><legend>15. 后端返回 204 No Content 时，前端最不应做的是？</legend><label><input type="radio" name="q15" value="A">A. 用 response.ok 判断成功</label><label><input type="radio" name="q15" value="B">B. 刷新 request 列表</label><label><input type="radio" name="q15" value="C">C. 直接 response.json() 并假设有 JSON</label><label><input type="radio" name="q15" value="D">D. 显示删除成功提示</label></fieldset>
+      <fieldset class="question"><legend>16. 测试中 app.dependency_overrides[get_db] = override_get_db 的目的是什么？</legend><label><input type="radio" name="q16" value="A">A. 禁用所有路由</label><label><input type="radio" name="q16" value="B">B. 改用独立测试数据库</label><label><input type="radio" name="q16" value="C">C. 删除生产数据库</label><label><input type="radio" name="q16" value="D">D. 绕过 JWT 验证</label></fieldset>
+      <fieldset class="question"><legend>17. 插入用户提交的 title/description 时，哪种做法更安全？</legend><label><input type="radio" name="q17" value="A">A. innerHTML = userValue</label><label><input type="radio" name="q17" value="B">B. textContent = userValue</label><label><input type="radio" name="q17" value="C">C. eval(userValue)</label><label><input type="radio" name="q17" value="D">D. 拼进 script 标签</label></fieldset>
+      <fieldset class="question"><legend>18. 把 JWT SECRET_KEY 直接写在源码中的主要问题是？</legend><label><input type="radio" name="q18" value="A">A. token 会立即过期</label><label><input type="radio" name="q18" value="B">B. 密钥可能被提交到 Git 或泄露</label><label><input type="radio" name="q18" value="C">C. SQLite 无法启动</label><label><input type="radio" name="q18" value="D">D. Pydantic 无法校验</label></fieldset>
+      <fieldset class="question"><legend>19. 真实系统中，公开注册接口接受 role=&quot;admin&quot; 的最大风险是？</legend><label><input type="radio" name="q19" value="A">A. 用户名无法唯一</label><label><input type="radio" name="q19" value="B">B. 任意人可自行获得管理员权限</label><label><input type="radio" name="q19" value="C">C. 密码会变短</label><label><input type="radio" name="q19" value="D">D. JWT 无法包含 role</label></fieldset>
+      <fieldset class="question"><legend>20. 要在筛选条件变化后自动刷新列表，最直接的实现是？</legend><label><input type="radio" name="q20" value="A">A. 仅给 Filter 按钮绑定 click</label><label><input type="radio" name="q20" value="B">B. 给两个 select 的 change 事件绑定 loadRequests</label><label><input type="radio" name="q20" value="C">C. 每次刷新浏览器</label><label><input type="radio" name="q20" value="D">D. 将筛选逻辑移到 CSS</label></fieldset>
+
+      <button type="submit">生成提交答案</button>
+    </form>
+
+    <section id="result" aria-live="polite">
+      <strong id="summary"></strong>
+      <p>复制下面这一行，直接发回当前对话：</p>
+      <textarea id="answers" readonly></textarea>
+    </section>
+  </main>
+  <script>
+    document.getElementById('quiz').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const answers = [];
+      let unanswered = 0;
+      for (let number = 1; number <= 20; number += 1) {
+        const choice = document.querySelector(`input[name="q${number}"]:checked`);
+        if (choice) answers.push(`${number}${choice.value}`);
+        else { answers.push(`${number}?`); unanswered += 1; }
+      }
+      document.getElementById('summary').textContent = unanswered
+        ? `还有 ${unanswered} 题未选；你也可以先提交，我会只批改已作答的题目。`
+        : '已完成全部 20 题。';
+      const output = document.getElementById('answers');
+      output.value = answers.join(' ');
+      document.getElementById('result').style.display = 'block';
+      output.focus();
+      output.select();
+    });
+  </script>
+</body>
+</html>
